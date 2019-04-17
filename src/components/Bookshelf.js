@@ -1,26 +1,11 @@
 import React from 'react'
 import '../App.css'
-import { Link } from 'react-router-dom';
 import  Book from './Book';
 
 class Bookshelf extends React.Component {
 
     render() {
-
-        let bookshelfs = [{
-            title: 'Currently Reading',
-            books: [{
-                title: 'To Kill a Mockingbird',
-                author: 'Harper Lee',
-                pic: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")'
-            }]
-        }, {
-            title: 'Want to Read',
-            books: []
-        }, {
-            title: 'Read',
-            books: []
-        }]
+        const { shelfs, onUpdateBook } = this.props;
 
         return  (
                 <div className="list-books">
@@ -29,18 +14,22 @@ class Bookshelf extends React.Component {
                 </div>
                 <div className="list-books-content">
                 <div>
-                    {
-                        bookshelfs.map( shelf => {
+                    { shelfs ? 
+                        shelfs.map( (shelf, index) => {
 
                             return (
-                                <div className="bookshelf">
+                                <div className="bookshelf" key={index}>
                                 <h2 className="bookshelf-title">{shelf.title}</h2>
                                 <div className="bookshelf-books">
                                     <ol className="books-grid"> 
                                     {
-                                        shelf.books.map( book => {
+                                        shelf.books.map( (book, i) => {
                                             return (
-                                                <Book book={book}></Book>
+                                                <Book 
+                                                    book={book} 
+                                                    key={book.id}
+                                                    onUpdateBook={onUpdateBook}>
+                                                </Book>
                                             )
                                         })
                                     }
@@ -49,7 +38,7 @@ class Bookshelf extends React.Component {
                                 </div>
                                 </div>
                             )
-                        })
+                        }) : <div></div>
                     }
                    
                 </div>

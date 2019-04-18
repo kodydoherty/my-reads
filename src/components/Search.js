@@ -42,8 +42,22 @@ class Search extends React.Component {
       if (this.searchTerms.includes(capitilize_search_term)) {
         BooksAPI.search(capitilize_search_term)
           .then((books) => {
+            let updpated_books = []
+            for (let book of books) {
+              let found = false;
+              for (let b of this.props.books) {
+                if (book.title === b.title) {
+                  found = true;
+                  book['shelf'] = b.shelf;
+                  updpated_books.push(book)
+                }
+              }
+              if (!found) {
+                updpated_books.push(book)
+              }
+            }
             this.setState({
-              books
+              books: updpated_books
             })
           }).catch((err) => {
             console.log(err);

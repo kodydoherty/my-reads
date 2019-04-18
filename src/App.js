@@ -12,6 +12,7 @@ class BooksApp extends React.Component {
     this.refresh = this.refresh.bind(this);
   }
   state = {
+    books: [],
 
     shelfs: [
       {
@@ -45,6 +46,7 @@ class BooksApp extends React.Component {
         }
 
         this.setState(() => ({
+          books: books,
           shelfs: [
             {
               title: 'Currently Reading',
@@ -77,7 +79,7 @@ class BooksApp extends React.Component {
             <Bookshelf shelfs={this.state.shelfs} onUpdateBook={this.updateBookShelf.bind(this)} />
           )} />
           <Route exact path='/search' render={() => (
-            <Search onAddBook={this.updateBookShelf.bind(this)}/>
+            <Search books={this.state.books} onAddBook={this.updateBookShelf.bind(this)}/>
           )} />
         </Switch>
       </div>

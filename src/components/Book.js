@@ -1,14 +1,13 @@
 import React from 'react'
 import '../App.css'
-class Book extends React.Component {
-    render() {
+
+let Book = (props) => {
+        const { book } = props;
 
         let change = (event) => {
             event.preventDefault();
-            this.props.onUpdateBook(this.props.book, event.target.value)
+            props.onUpdateBook(book, event.target.value)
         }
-        
-        const { book } = this.props;
         
         return  (
             <li>
@@ -34,8 +33,8 @@ class Book extends React.Component {
                 </div>
                 <div className="book-title">{book.title}</div>
                 {
-                    this.props.book.authors ? 
-                    this.props.book.authors.map( (author, index) => {
+                    props.book.authors ? 
+                    props.book.authors.map( (author, index) => {
                         return (
                             <div className="book-authors" key={index}>{author}</div>
                         )
@@ -46,7 +45,6 @@ class Book extends React.Component {
             </li>       
              
         )
-    }
 }
 
 export default Book

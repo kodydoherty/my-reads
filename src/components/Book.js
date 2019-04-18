@@ -1,12 +1,10 @@
 import React from 'react'
 import '../App.css'
 class Book extends React.Component {
-    // change(event) {
-    //     this.props.onUpdateBook(this.props.book, event.target.value)
-    // }
     render() {
 
         let change = (event) => {
+            event.preventDefault();
             this.props.onUpdateBook(this.props.book, event.target.value)
         }
         
@@ -16,9 +14,16 @@ class Book extends React.Component {
             <li>
                 <div className="book">
                 <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
+                    {
+                        book.imageLinks ? <div 
+                            className="book-cover" 
+                            style={{ width: 128, height: 193, 
+                            backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div> :
+                            <span></span>
+
+                    }
                     <div className="book-shelf-changer">
-                    <select onChange={change} value={book.shelf}>
+                    <select onChange={change} value={book.shelf || 'none'}>
                         <option value="move" disabled>Move to...</option>
                         <option value="currentlyReading" >Currently Reading</option>
                         <option value="wantToRead" >Want to Read</option>
@@ -29,11 +34,12 @@ class Book extends React.Component {
                 </div>
                 <div className="book-title">{book.title}</div>
                 {
+                    this.props.book.authors ? 
                     this.props.book.authors.map( (author, index) => {
                         return (
                             <div className="book-authors" key={index}>{author}</div>
                         )
-                    })
+                    }) : <span></span>
                 }
                 
                 </div>

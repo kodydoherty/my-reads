@@ -1,11 +1,12 @@
 import React from 'react'
 import '../App.css'
 import  Book from './Book';
+import {Link} from 'react-router-dom';
 
 class Bookshelf extends React.Component {
 
     render() {
-        const { shelfs, onUpdateBook } = this.props;
+        const { shelfs } = this.props;
 
         return  (
                 <div className="list-books">
@@ -28,7 +29,7 @@ class Bookshelf extends React.Component {
                                                 <Book 
                                                     book={book} 
                                                     key={book.id}
-                                                    onUpdateBook={onUpdateBook}>
+                                                    onUpdateBook={this.props.onUpdateBook.bind(this)}>
                                                 </Book>
                                             )
                                         })
@@ -44,7 +45,10 @@ class Bookshelf extends React.Component {
                 </div>
                 </div>
                 <div className="open-search">
-                <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+                    <Link to="/search">
+                        <button type='button'>Add a book</button>
+                    </Link>
+                    
                 </div>
                 </div>
         )

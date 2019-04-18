@@ -57,9 +57,7 @@ class BooksApp extends React.Component {
               books: r
             },
           ]
-        }))
-        
-        console.log(books);
+        }))        
       })
   }
 
@@ -68,20 +66,18 @@ class BooksApp extends React.Component {
   }
 
   async updateBookShelf(book, shelf) {
-    let res = await BooksAPI.update(book, shelf)
-    console.log(res);
-    console.log('UPDATED');
-    await this.refresh().bind(this);
+    await BooksAPI.update(book, shelf)
+    await this.refresh();
   }
   render() {
     return (
       <div className="app">
         <Switch>
           <Route exact path="/" render={() => (
-            <Bookshelf shelfs={this.state.shelfs} onUpdateBook={this.updateBookShelf} />
+            <Bookshelf shelfs={this.state.shelfs} onUpdateBook={this.updateBookShelf.bind(this)} />
           )} />
           <Route exact path='/search' render={() => (
-            <Search books={this.state.books} />
+            <Search onAddBook={this.updateBookShelf.bind(this)}/>
           )} />
         </Switch>
       </div>
